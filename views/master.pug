@@ -1,0 +1,51 @@
+extends layout
+
+block append stylesheets
+  link(rel='stylesheet', href='/stylesheets/master.css')
+
+block content 
+  header(class="w3-container w3-padding w3-teal bg-header")
+    div(class="w3-center")
+      div(class='ripple-background')
+        div(class="w3-xxxlarge") Juri
+  
+  div(class="w3-container w3-black")
+    div(class="w3-row w3-padding-16")
+      - var stage = ['Persiapan', 'Ronde 1', 'Ronde 2', 'Ronde 3', 'Selesai']
+      - var elmId = ['prepare', 'stage_1', 'stage_2', 'stage_3', 'finish']
+      - for (var i=0; i<5; i++)
+        div(class="w3-col m2")
+          input(id=elmId[i], class="w3-radio", type="radio", name="stage", value=String.fromCharCode(48+i), onclick="changeStage("+String.fromCharCode(48+i)+")", checked)
+          label(for=elmId[i]) #{stage[i]}
+  
+  div(class="w3-row-padding w3-center w3-margin-top")
+    - var color = ['orange', 'indigo', 'cyan', 'purple']
+    - for (var i=0; i<4; i++)
+      div(class="w3-quarter")
+        div(id="team_"+String.fromCharCode(97+i), class="w3-card w3-display-container w3-text-"+color[i]+" w3-hide", style="min-height:400px")
+          div(class="w3-display-topmiddle")
+            div(class="w3-xxlarge") Regu&nbsp;#{String.fromCharCode(65+i)}
+          div(class="w3-display-middle")
+            div(id="select_"+String.fromCharCode(97+i), class="w3-section")
+              input(id="select_chk_"+String.fromCharCode(97+i), class="w3-check", type="checkbox", onclick="selectTeam("+String.fromCharCode(48+i)+")")
+              label(for="select_chk_"+String.fromCharCode(97+i)) Pilih
+            div(id="answer_"+String.fromCharCode(97+i), class="w3-cell-row w3-disabled")
+              div(class="w3-cell-middle") Jawaban&nbsp;&nbsp;
+              div(class="w3-cell")
+                input(id="ans_right_"+String.fromCharCode(97+i), class="w3-check", type="checkbox", onclick="markAnswer("+String.fromCharCode(48+i)+", true)")
+                label(class="w3-text-green", for="ans_right_"+String.fromCharCode(97+i)) Benar
+                  br
+                input(id="ans_wrong_"+String.fromCharCode(97+i), class="w3-check", type="checkbox", onclick="markAnswer("+String.fromCharCode(48+i)+", false)")
+                label(class="w3-text-red", for="ans_wrong_"+String.fromCharCode(97+i)) Salah
+            div(class="w3-disabled", id="score_"+String.fromCharCode(97+i))
+              div(class="w3-section")
+                label(for="score_val_"+String.fromCharCode(97+i)) Score
+                input(id="score_val_"+String.fromCharCode(97+i), class="w3-input w3-border", type="number", min="-100", max="100", step="5")
+              button(onclick="updateScore("+String.fromCharCode(48+i)+")") Update&nbsp;Score
+          div(class="w3-display-bottommiddle")
+            div(class="w3-xxlarge")
+              span Score&nbsp;
+              span(id="score_tot_"+String.fromCharCode(97+i)) 0
+
+block append scripts
+  script(type='text/javascript', src='/javascripts/master.js')

@@ -1,0 +1,18 @@
+extends layout
+
+block append stylesheets
+  link(rel='stylesheet', href='/stylesheets/team.css')
+
+block content 
+  header(class="w3-container w3-padding w3-teal bg-header")
+    div(class="w3-center")
+      div(class='ripple-background')
+        div(class="w3-xxxlarge") Regu&nbsp;
+          span(id="team") #{team}
+  div(class="w3-container w3-center w3-black")
+    div(id="stage", class="w3-xxlarge") Persiapan
+  button(class="button-3d", onmousedown="onMouseDown()", onmouseup="onMouseUp()", ontouchstart="onTouchStart()", ontouchend="onTouchEnd()")
+    i(class="fa fa-bell")
+
+block append scripts
+  script(type='text/javascript', src='/javascripts/team.js')
